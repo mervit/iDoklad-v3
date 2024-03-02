@@ -3,12 +3,12 @@
 /**
  * Class that handles authentication and access tokens
  *
- * @author Jan Malcanek
+ * @author Jan mervit
  */
 
-namespace malcanek\iDoklad\auth;
+namespace mervit\iDoklad\auth;
 
-use malcanek\iDoklad\iDokladException;
+use mervit\iDoklad\iDokladException;
 
 class iDokladAuth {
 
@@ -80,7 +80,7 @@ class iDokladAuth {
     /**
      * Chooses authenticate method and gets credentials
      * @param string $authType
-     * @param \malcanek\iDoklad\auth\iDokladCredentials $credentials
+     * @param \mervit\iDoklad\auth\iDokladCredentials $credentials
      * @throws iDokladException
      */
     public function auth($authType = self::AUTH_TYPE_OAUTH2, iDokladCredentials $credentials = null) {
@@ -221,7 +221,7 @@ class iDokladAuth {
 
     /**
      * Sets iDokladCredentials to provide authentication
-     * @param \malcanek\iDoklad\auth\iDokladCredentials $credentials
+     * @param \mervit\iDoklad\auth\iDokladCredentials $credentials
      */
     public function setCredentials(iDokladCredentials $credentials){
         $this->credentials = $credentials;

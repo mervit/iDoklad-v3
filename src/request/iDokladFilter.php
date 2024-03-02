@@ -5,9 +5,9 @@
  * @author Jan Malcánek
  */
 
-namespace malcanek\iDoklad\request;
+namespace mervit\iDoklad\request;
 
-use malcanek\iDoklad\iDokladException;
+use mervit\iDoklad\iDokladException;
 
 class iDokladFilter {
     
@@ -66,7 +66,7 @@ class iDokladFilter {
     /**
      * Adds property name of filter
      * @param string $propertyName
-     * @return \malcanek\iDoklad\request\iDokladFilter
+     * @return \mervit\iDoklad\request\iDokladFilter
      */
     public function addPropertyName(string $propertyName){
         $this->propertyName = $propertyName;
@@ -76,7 +76,7 @@ class iDokladFilter {
     /**
      * Adds filter operator
      * @param string $operator
-     * @return \malcanek\iDoklad\request\iDokladFilter
+     * @return \mervit\iDoklad\request\iDokladFilter
      * @throws iDokladException
      */
     public function addOperator(string $operator){
@@ -93,7 +93,7 @@ class iDokladFilter {
     /**
      * Adds filter value, mostly string, in case of operator between array
      * @param mixed $propertyValue
-     * @return \malcanek\iDoklad\request\iDokladFilter
+     * @return \mervit\iDoklad\request\iDokladFilter
      */
     public function addPropertyValue(mixed $propertyValue){
         $this->propertyValue = $propertyValue;

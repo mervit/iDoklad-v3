@@ -12,9 +12,9 @@ Zadáme naše client ID, client secret a v případě, že chceme použít OAuth
 ```php
 include_once 'src/iDoklad.php';
             
-use malcanek\iDoklad\iDoklad;
-use malcanek\iDoklad\auth\iDokladCredentials;
-use malcanek\iDoklad\iDokladException;
+use mervit\iDoklad\iDoklad;
+use mervit\iDoklad\auth\iDokladCredentials;
+use mervit\iDoklad\iDokladException;
 
 $clientId = 'Your client ID';
 $clientSecret = 'Your client secret';
@@ -155,7 +155,7 @@ $iDoklad->httpExceptionsOn()
 ## Upload přílohy
 Pokud chceme uploadovat přílohu, stačí nám použít metodu addFile nad request objektem.
 ```php
-$request = new \malcanek\iDoklad\request\iDokladRequest('Attachments/{documentId}/{documentType}');
+$request = new \mervit\iDoklad\request\iDokladRequest('Attachments/{documentId}/{documentType}');
 $request->addFile(new CURLFile(path_to_your_file));
 $response = $iDoklad->sendRequest($request);
 ```
