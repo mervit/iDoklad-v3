@@ -36,7 +36,7 @@ class iDoklad {
      * URL for commucation with iDoklad api
      * @var string
      */
-    private $url = 'https://app.idoklad.cz/developer/api/v2/';
+    private $url = 'https://api.idoklad.cz/v3/';
 
     /**
      * Api methods allowed by iDoklad
