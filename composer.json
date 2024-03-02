@@ -1,8 +1,8 @@
 {
-    "name": "malcanek/idoklad-v2",
-    "description": "PHP třída pro ulehčení požadavků na iDoklad api v2.",
+    "name": "mervit/idoklad-v3",
+    "description": "PHP třída pro ulehčení požadavků na iDoklad api v3.",
     "keywords": ["idoklad", "fakturace"],
-    "homepage": "https://github.com/malcanek/iDoklad-v2",
+    "homepage": "https://github.com/mervit/iDoklad-v3",
     "license": "MIT",
     "authors": [
         {
@@ -10,10 +10,16 @@
             "email": "jan@malcanek.cz",
             "homepage": "http://www.malcanek.cz",
             "role": "Author"
+        },
+        {
+            "name": "Vítězslav Mergl",
+            "email": "me@vitezslavmergl.cz",
+            "homepage": "https://www.vitezslavmergl.cz",
+            "role": "Author"
         }
     ],
     "autoload": {
-        "psr-4": {"malcanek\\iDoklad\\": "src/"}
+        "psr-4": {"mervit\\iDoklad\\": "src/"}
     },
     "require": {
         "php": ">=5.5.0"

@@ -6,7 +6,7 @@ PHP třída pro zasílání požadavků na iDoklad api v3.
 ## Vložení knihovny do projektu
 Knihovnu vložíme do projektu naincludováním souboru src/iDoklad.php, nebo si knihovnu přidáme pomocí composeru. Následně se na knihovnu odkážeme pomocí use.
 ```php
-composer require malcanek/idoklad-v2
+composer require mervit/idoklad-v3
 ```
 Zadáme naše client ID, client secret a v případě, že chceme použít OAuth2 autentifikaci i redirect URI. Nakonec si zavoláme objekt iDokladu, který zajišťuje veškerou komunikaci.
 ```php
