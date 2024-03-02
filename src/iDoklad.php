@@ -3,10 +3,10 @@
 /**
  * Main iDoklad object. Collects all iDoklad options together and handles all main actions.
  *
- * @author Jan Malcanek
+ * @author Jan mervit
  */
 
-namespace malcanek\iDoklad;
+namespace mervit\iDoklad;
 
 include_once __DIR__.'/auth/iDokladAuth.php';
 include_once __DIR__.'/auth/iDokladCredentials.php';
@@ -16,13 +16,13 @@ include_once __DIR__.'/request/iDokladResponse.php';
 include_once __DIR__.'/request/iDokladFilter.php';
 include_once __DIR__.'/request/iDokladSort.php';
 
-use malcanek\iDoklad\auth\iDokladAuth;
-use malcanek\iDoklad\iDokladException;
-use malcanek\iDoklad\request\iDokladRequest;
-use malcanek\iDoklad\request\iDokladResponse;
-use malcanek\iDoklad\auth\iDokladCredentials;
-use malcanek\iDoklad\request\iDokladFilter;
-use malcanek\iDoklad\request\iDokladSort;
+use mervit\iDoklad\auth\iDokladAuth;
+use mervit\iDoklad\iDokladException;
+use mervit\iDoklad\request\iDokladRequest;
+use mervit\iDoklad\request\iDokladResponse;
+use mervit\iDoklad\auth\iDokladCredentials;
+use mervit\iDoklad\request\iDokladFilter;
+use mervit\iDoklad\request\iDokladSort;
 
 class iDoklad {
 

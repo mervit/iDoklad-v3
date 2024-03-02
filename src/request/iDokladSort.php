@@ -5,9 +5,9 @@
  * @author Jan Malcánek
  */
 
-namespace malcanek\iDoklad\request;
+namespace mervit\iDoklad\request;
 
-use malcanek\iDoklad\iDokladException;
+use mervit\iDoklad\iDokladException;
 
 class iDokladSort {
     
@@ -53,7 +53,7 @@ class iDokladSort {
     /**
      * Adds property name to sort
      * @param string $propertyName
-     * @return \malcanek\iDoklad\request\iDokladSort
+     * @return \mervit\iDoklad\request\iDokladSort
      */
     public function addPropertyName(string $propertyName){
         $this->propertyName = $propertyName;
@@ -63,7 +63,7 @@ class iDokladSort {
     /**
      * Adds sort order. Can be asc or desc
      * @param string $sortOrder
-     * @return \malcanek\iDoklad\request\iDokladSort
+     * @return \mervit\iDoklad\request\iDokladSort
      */
     public function addSortOrder(string $sortOrder){
         $this->sortOrder = $sortOrder;

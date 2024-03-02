@@ -3,12 +3,12 @@
 /**
  * Entity that stores authentication data
  *
- * @author Jan Malcanek
+ * @author Jan mervit
  */
 
-namespace malcanek\iDoklad\auth;
+namespace mervit\iDoklad\auth;
 
-use malcanek\iDoklad\iDokladException;
+use mervit\iDoklad\iDokladException;
 
 class iDokladCredentials {
     
