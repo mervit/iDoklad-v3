@@ -3,6 +3,17 @@
 PHP třída pro zasílání požadavků na iDoklad api v3.
 [Dokumentace iDoklad api v2](https://app.idoklad.cz/Developer/Help)
 
+## Změny v kodu proti verzi v2 od malcanek/iDoklad-v2
+Všechny volání 
+```php
+$response->getData()
+```
+Nahradit
+```php
+$response->getItems()
+```
+
+
 ## Vložení knihovny do projektu
 Knihovnu vložíme do projektu naincludováním souboru src/iDoklad.php, nebo si knihovnu přidáme pomocí composeru. Následně se na knihovnu odkážeme pomocí use.
 ```php

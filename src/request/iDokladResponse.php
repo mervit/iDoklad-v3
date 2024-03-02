@@ -21,6 +21,12 @@ class iDokladResponse {
      * @var array
      */
     private $data;
+
+    /**
+     * items returned from iDoklad
+     * @var array
+     */
+    private $items;
     
     /**
      * Headers returned from request
@@ -29,7 +35,7 @@ class iDokladResponse {
     private $headers;
     
     /**
-     * Number of items returned. These items are in data var.
+     * Number of items returned. These items are in items var.
      * @var int
      */
     private $totalItems;
@@ -95,8 +101,9 @@ class iDokladResponse {
             $parsed = $this->parseJSON($this->raw);
             $this->data = empty($parsed['Data']) ? $parsed : $parsed['Data'];
             $this->links = empty($parsed['Links']) ? null : $parsed['Links'];
-            $this->totalItems = empty($parsed['TotalItems']) ? null : $parsed['TotalItems'];
-            $this->totalPages = empty($parsed['TotalPages']) ? null : $parsed['TotalPages'];
+            $this->items = empty($parsed['Data']['Items']) ? $parsed : $parsed['Data']['Items'];
+            $this->totalItems = empty($parsed['Data']['TotalItems']) ? null : $parsed['Data']['TotalItems'];
+            $this->totalPages = empty($parsed['Data']['TotalPages']) ? null : $parsed['Data']['TotalPages'];
         }
     }
     
@@ -122,6 +129,14 @@ class iDokladResponse {
      */
     public function getData(){
         return $this->data;
+    }
+
+    /**
+     * Returns parsed response items
+     * @return array
+     */
+    public function getItems(){
+        return $this->items;
     }
     
     /**
