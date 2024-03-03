@@ -3,7 +3,7 @@
 /**
  * Entity that stores authentication data
  *
- * @author Jan mervit
+ * @author Jan malcanek
  */
 
 namespace mervit\iDoklad\auth;

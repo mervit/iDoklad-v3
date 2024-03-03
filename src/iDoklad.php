@@ -3,7 +3,7 @@
 /**
  * Main iDoklad object. Collects all iDoklad options together and handles all main actions.
  *
- * @author Jan mervit
+ * @author Jan malcanek
  */
 
 namespace mervit\iDoklad;

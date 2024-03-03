@@ -3,7 +3,7 @@
 /**
  * iDoklad exception class for better error catching
  *
- * @author Jan mervit
+ * @author Jan malcanek
  */
 
 namespace mervit\iDoklad;

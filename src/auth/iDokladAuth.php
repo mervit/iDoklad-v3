@@ -3,7 +3,7 @@
 /**
  * Class that handles authentication and access tokens
  *
- * @author Jan mervit
+ * @author Jan malcanek
  */
 
 namespace mervit\iDoklad\auth;

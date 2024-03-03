@@ -10,7 +10,7 @@ Děkuji @malcanek za vytvoření v2, knihovnu jsem upgradoval na verzi 3 a dáv�
 
 ## Změny v kodu proti verzi v2 od /iDoklad-v2
 Pokud přechod na verzi v3 není nutný, tak přechod nedoporučuji. Verze v3 API v podstatě neumožňuje výchozí hodnoty. Všechny hodnoty, které nesmí být prázdné je tedy třeba explicitně definovat. To může být trochu zdlouhavé v případě, že chceme u většiny z nich použít výchozí hodnoty, které nejdřív musíme přes API načíst.
-Podstattná změna je v odpovědích, kdy bylo u listů TotalItems a TotalPages přesunuto pro parametr data. Položky listů tedy již nelze načíst metodou getData ale nově vzniklou metodou getItems. U existujících aplikací je tedy nutné při přechodu z verze 2 na verzi 3 zasáhnout do všech callu které vrazí list výsledků.
+Podstattná změna je v odpovědích, kdy bylo u listů TotalItems a TotalPages přesunuto pod parametr data. Položky listů tedy již nelze načíst metodou getData ale nově vzniklou metodou getItems. U existujících aplikací je tedy nutné při přechodu z verze 2 na verzi 3 zasáhnout do všech callu které vrací list výsledků.
 Upozorňuji, že hodnoty do filtru je třeba vkládat striktně stringově. Id 0 tedy zapsat opravu jako '0' (s uvozovkami).
 
 
