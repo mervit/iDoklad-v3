@@ -60,6 +60,9 @@ class iDokladFilter {
         } else {
             $this->operator = $operator;
         }
+        if(is_bool($propertyValue)){
+            $propertyValue = $propertyValue ? 'true' : 'false';
+        }
         $this->propertyValue = $propertyValue;
     }
     
@@ -96,6 +99,9 @@ class iDokladFilter {
      * @return \mervit\iDoklad\request\iDokladFilter
      */
     public function addPropertyValue(mixed $propertyValue){
+        if(is_bool($propertyValue)){
+            $propertyValue = $propertyValue ? 'true' : 'false';
+        }
         $this->propertyValue = $propertyValue;
         return $this;
     }
