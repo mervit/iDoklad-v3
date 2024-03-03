@@ -48,7 +48,7 @@ class iDokladFilter {
      * @param string $propertyValue
      * @throws iDokladException
      */
-    public function __construct($propertyName = null, $operator = null, $propertyValue = null) {
+    public function __construct(string $propertyName = null, string $operator = null, string $propertyValue = null) {
         if(($operator == '<>' || $operator == 'between') && !is_array($propertyValue)){
             throw new iDokladException('propertyValue has to be array when using between operator');
         }
@@ -59,11 +59,6 @@ class iDokladFilter {
             $this->operator = array_search($operator, $this->queryOperators);
         } else {
             $this->operator = $operator;
-        }
-        if(is_bool($propertyValue)){
-            $propertyValue = $propertyValue ? 'true' : 'false';
-        } elseif(is_int($propertyValue)) {
-            $propertyValue = (string)$propertyValue ? (string)$propertyValue : '0';
         }
         $this->propertyValue = $propertyValue;
     }
@@ -97,15 +92,10 @@ class iDokladFilter {
     
     /**
      * Adds filter value, mostly string, in case of operator between array
-     * @param mixed $propertyValue
+     * @param string $propertyValue
      * @return \mervit\iDoklad\request\iDokladFilter
      */
-    public function addPropertyValue(mixed $propertyValue){
-        if(is_bool($propertyValue)){
-            $propertyValue = $propertyValue ? 'true' : 'false';
-        } elseif(is_int($propertyValue)) {
-            $propertyValue = (string)$propertyValue ? (string)$propertyValue : '0';
-        }
+    public function addPropertyValue(string $propertyValue){
         $this->propertyValue = $propertyValue;
         return $this;
     }
@@ -116,7 +106,7 @@ class iDokladFilter {
      * @throws iDokladException
      */
     public function buildQuery(){
-        if(empty($this->propertyValue)){
+        if($this->propertyValue == '' || is_null($this->propertyValue)){
             throw new iDokladException("Property value in filter cannot be empty");
         }
         if(empty($this->propertyName)){
