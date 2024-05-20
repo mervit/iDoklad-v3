@@ -21,13 +21,13 @@ class iDokladAuth {
      * Holds authorize URL
      * @var string
      */
-    private $authorizeUrl = 'https://app.idoklad.cz/identity/server/connect/authorize';
+    private $authorizeUrl = 'https://identity.idoklad.cz/server/connect/authorize';
 
     /**
      * Holds token URL
      * @var string
      */
-    private $tokenUrl = 'https://app.idoklad.cz/identity/server/connect/token';
+    private $tokenUrl = 'https://identity.idoklad.cz/server/connect/token';
 
     /**
      * Holds client id set by developer

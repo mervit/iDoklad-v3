@@ -9,9 +9,10 @@ PHP třída pro zasílání požadavků na iDoklad api v3.
 Děkuji @malcanek za vytvoření v2, knihovnu jsem upgradoval na verzi 3 a dávám jí tímto k dispozici ostatním zájemcům
 
 ## Změny v kodu proti verzi v2 od /iDoklad-v2
-Pokud přechod na verzi v3 není nutný, tak přechod nedoporučuji. Verze v3 API v podstatě neumožňuje výchozí hodnoty. Všechny hodnoty, které nesmí být prázdné je tedy třeba explicitně definovat. To může být trochu zdlouhavé v případě, že chceme u většiny z nich použít výchozí hodnoty, které nejdřív musíme přes API načíst.
-Podstattná změna je v odpovědích, kdy bylo u listů TotalItems a TotalPages přesunuto pod parametr data. Položky listů tedy již nelze načíst metodou getData ale nově vzniklou metodou getItems. U existujících aplikací je tedy nutné při přechodu z verze 2 na verzi 3 zasáhnout do všech callu které vrací list výsledků.
-Upozorňuji, že hodnoty do filtru je třeba vkládat striktně stringově. Id 0 tedy zapsat opravu jako '0' (s uvozovkami).
+ - Podstattná změna je v odpovědích, kdy bylo u listů TotalItems a TotalPages přesunuto pod parametr data. Položky listů tedy již nelze načíst metodou getData ale nově vzniklou metodou getItems. U existujících aplikací je tedy nutné při přechodu z verze 2 na verzi 3 zasáhnout do všech callu které vrací list výsledků.
+ - Přepracované jsou filtry, které nyní umožňují seskupování a zanořování podmínek a kombinací logických operátorů `or` a `and`
+ - Requesty GET nově podporují parametr select pro omezení dat ve výsledcích
+ - Requesty GET nově podporují také parametr include který umožňuje zahrnout do odpovědi i data z připojených entit
 
 
 ## Vložení knihovny do projektu
@@ -140,9 +141,19 @@ $filter = new iDokladFilter('DocumentNumber', '==', '20170013');
 $request->addFilter($filter);
 ```
 
-Filtrů můžeme přidat několik zároveň a poté můžeme zvolit vztah mezi filtry, aby platili všechny zároveň (and), nebo alespoň jeden (or).
+Vztahy mezi jednotlivými filtry můžeme definovat pomocí metody setFilterType.
 ```php
-$request->setFilterType('or');
+$request->setFilterType('and');
+```
+
+Filtrů můžeme přidat několik a pomocí filterGroup třídy je můžeme seskupit.  
+```php
+$filterGroup = new \mervit\iDoklad\request\iDokladFilterGroup('or');
+$filter2 = new \mervit\iDoklad\request\iDokladFilter('Id', '!eq', '123');
+$filterGroup->addFilter($filter2);
+$filter3 = new \mervit\iDoklad\request\iDokladFilter('Id', 'eq', '456');
+$filterGroup->addFilter($filter3);
+$request->addFilter($filterGroup);
 ```
 
 Pro použití třídění použijeme třídu iDokladSort. Opět můžeme hned přidávat parametry, kdy první parametr je jméno pole a druhý parametr je dobrovolný a lze zadat, zda řadit vzestupně (asc) či sestupně (desc).
@@ -155,6 +166,39 @@ $request->addSort($sort);
 ```php
 $request->setPage(2);
 $request->setPageSize(5);
+```
+
+## Omezení výsledku
+Pomocí metody addSelect můžeme omezit data, které API vrací a výrazně tím dobu zpracování požadavku
+```php
+$request->addSelect('Id');
+$request->addSelect('CurrencyId');
+```
+
+Zanořená data odělujeme tečkou
+```php
+$request->addSelect('DeliveryAddress.Name');
+```
+
+Můžeme přidat i více proměných odělené čárkou
+```php
+$request->addSelect('Items.Id,Items.Name');
+```
+
+## Načtení připojených entit
+Pomocí metody addInclude můžeme naopak rozšířit vrácené data o detaily připojených entit. Díky této funkci již nemusíme načítat detail připojené entity samostatným callem.
+```php
+$request->addInclude('Currency');
+```
+
+Zanořená data odělujeme tečkou
+```php
+$request->addInclude('Items.PriceListItem.Currency');
+```
+
+Můžeme přidat i více proměných odělené čárkou
+```php
+$request->addInclude('Currency,Items.PriceListItem.Currency');
 ```
 
 ## Vyhazování exception při návratových kódech vyšších nebo rovno 400

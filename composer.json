@@ -22,6 +22,6 @@
         "psr-4": {"mervit\\iDoklad\\": "src/"}
     },
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=7.1.0"
     }
 }

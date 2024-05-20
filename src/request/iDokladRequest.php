@@ -77,17 +77,37 @@ class iDokladRequest {
     private $isBinary = false;
 
     /**
+     * Sets type of operator between filters. Possible values are `and` and `or`
+     * @var string
+     */
+    private $filtertype;
+
+    /**
+     * Restrict returned data only for specific fields
+     * @var array
+     */
+    private $select;
+
+    /**
+     * Include extra entities to response
+     * @var array
+     */
+    private $include;
+
+    /**
      * Optionally initializes request parameters
      * @param string $method
      * @param string $methodType
      * @param array $getParameters
      * @param array $postParameters
+     * @throws iDokladException
      */
-    public function __construct($method = null, $methodType = 'GET', $getParameters = array(), $postParameters = array()) {
+    public function __construct($method = null, $methodType = 'GET', $getParameters = array(), $postParameters = array(), $filtertype = 'and') {
         $this->method = $method;
         $this->methodType = $methodType;
         $this->getParams = $getParameters;
         $this->postParams = $postParameters;
+        $this->setFilterType($filtertype);
     }
     
     /**
@@ -164,10 +184,10 @@ class iDokladRequest {
     
     /**
      * Adds data filter
-     * @param \mervit\iDoklad\request\iDokladFilter $filter
+     * @param \mervit\iDoklad\request\iDokladFilterInterface $filter
      * @return \mervit\iDoklad\request\iDokladRequest
      */
-    public function addFilter(iDokladFilter $filter){
+    public function addFilter(iDokladFilterInterface $filter){
         $this->filters[] = $filter;
         return $this;
     }
@@ -214,17 +234,100 @@ class iDokladRequest {
     }
     
     /**
-     * Sets filter type allowed and and or
+     * Sets filter type allowed `and` and `or`
      * @param string $type
      * @return \mervit\iDoklad\request\iDokladRequest
      * @throws iDokladException
      */
-    public function setFilterType($type){
+    public function setFilterType($type): iDokladRequest
+    {
         if($type != 'and' && $type != 'or'){
             throw new iDokladException('Filter type must be \'and\' or \'or\'');
         }
-        $this->getParams['filtertype'] = $type;
+        $this->filtertype = $type;
         return $this;
+    }
+
+    /**
+     * Adds field to requested return data.
+     * For nested variables use dot
+     * Its possible to add multiple fields and separate them with comma
+     */
+    public function addSelect(string $field): iDokladRequest
+    {
+
+        if(strpos($field, ',')){
+            $fields = explode(',', $field);
+            foreach ($fields as $f){
+                $this->addSelect($f);
+            }
+            return $this;
+        }
+
+        $pointer = &$this->select;
+        $fieldParts = explode('.', $field);
+        for ($i = 0; $i < count($fieldParts); ++$i){
+            if(!isset($pointer[$fieldParts[$i]])) {
+                $pointer[$fieldParts[$i]] = [];
+            }
+            $pointer = &$pointer[$fieldParts[$i]];
+
+        }
+        return $this;
+    }
+
+    private function buildSelect($fields){
+        $selectStrings = [];
+        foreach($fields as $selectName => $subFields){
+            $selectString = $selectName;
+            if(!empty($subFields)){
+                $selectString .= '(' . $this->buildSelect($subFields) . ')';
+            }
+            $selectStrings[] = $selectString;
+        }
+        return implode(',', $selectStrings);
+
+    }
+
+    /**
+     * Include another entities to returned data.
+     * For nested variables use dot
+     * Its possible to add multiple entities and separate them with comma
+     */
+    public function addInclude(string $field): iDokladRequest
+    {
+
+        if(strpos($field, ',')){
+            $fields = explode(',', $field);
+            foreach ($fields as $f){
+                $this->addInclude($f);
+            }
+            return $this;
+        }
+
+        $pointer = &$this->include;
+        $fieldParts = explode('.', $field);
+        for ($i = 0; $i < count($fieldParts); ++$i){
+            if(!isset($pointer[$fieldParts[$i]])) {
+                $pointer[$fieldParts[$i]] = [];
+            }
+            $pointer = &$pointer[$fieldParts[$i]];
+
+        }
+        return $this;
+    }
+
+    private function buildInclude($fields){
+        $includeStrings = [];
+        foreach($fields as $includeName => $subFields){
+            $includeString = $includeName;
+            if(!empty($subFields)){
+                $includeString .= '(' . $this->buildInclude($subFields) . ')';
+            }
+            $includeStrings[] = $includeString;
+        }
+        return implode(',', $includeStrings);
+
     }
 
     /**
@@ -233,12 +336,18 @@ class iDokladRequest {
      * @throws iDokladException
      */
     public function buildGetQuery(){
-        $filterString = array();
+        $filterString = '';
         foreach($this->filters as $filter){
-            $filterString[] = $filter->buildQuery();
+            $filterString .= $filterString ? ( '~' . $this->filtertype . '~(' . $filter->buildQuery() . ')') : ('(' . $filter->buildQuery() . ')');
         }
         if(!empty($filterString)){
-            $this->addGetParameter("filter", implode('|', $filterString));
+            $this->addGetParameter("filter", $filterString);
+        }
+        if(!empty($this->select)) {
+            $this->addGetParameter("select", $this->buildSelect($this->select));
+        }
+        if(!empty($this->include)) {
+            $this->addGetParameter("include", $this->buildInclude($this->include));
         }
         $sortString = array();
         foreach($this->sorts as $sort){

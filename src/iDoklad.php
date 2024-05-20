@@ -11,9 +11,11 @@ namespace mervit\iDoklad;
 include_once __DIR__.'/auth/iDokladAuth.php';
 include_once __DIR__.'/auth/iDokladCredentials.php';
 include_once __DIR__.'/iDokladException.php';
+include_once __DIR__.'/request/iDokladFilterInterface.php';
 include_once __DIR__.'/request/iDokladRequest.php';
 include_once __DIR__.'/request/iDokladResponse.php';
 include_once __DIR__.'/request/iDokladFilter.php';
+include_once __DIR__.'/request/iDokladFilterGroup.php';
 include_once __DIR__.'/request/iDokladSort.php';
 
 use mervit\iDoklad\auth\iDokladAuth;

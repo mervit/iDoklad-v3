@@ -1,0 +1,2 @@
+- [ ] Existence default metod pro většinu entit, tyto metody naplní POST model defaultními údaji (většinou z nastavení), takže snižují pracnost na straně vývojáře
+- [ ] Nové a rychlejší metody pro zjištění změn pomocí logu iDoklad API, které jsou mnohem efektivnější než občas používaný způsob opakovaného stahování dokladů a hledání změn. Do budoucna chystáme i podporu informace o změnách formou webhooků
